@@ -10,7 +10,7 @@ nav_order: 1
 
 1. Create a new project in Azure DevOps for this tutorial (optional).
 2. Create a new repository to hold the tools code. We will refer to it as **apim-tools** in this tutorial.
-3. Publish the contents of the [**tools**](https://github.com/Azure/apiops/tree/main/tools) folder to this new repository. Your folder structure should look like:
+3. Copy the [**tools**](https://github.com/Azure/apiops/tree/main/tools) folder  to this new repository. Your folder structure should look like this:
     - your-repo-name
         - tools
             - code
