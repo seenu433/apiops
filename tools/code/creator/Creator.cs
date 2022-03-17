@@ -14,7 +14,7 @@ public class Creator : ConsoleService
     public Creator(IHostApplicationLifetime applicationLifetime, ILogger<Creator> logger, IConfiguration configuration, ArmClient armClient, AzureEnvironment azureEnvironment) : base(applicationLifetime, logger)
     {
         this.serviceDirectory = GetServiceDirectory(configuration);
-        this.serviceUri = GetServiceUri(configuration, armClient, serviceDirectory);
+        this.serviceUri = GetServiceUri(configuration, azureEnvironment, serviceDirectory);
         this.commitId = TryGetCommitId(configuration);
         this.getResources = armClient.GetResources;
         this.putResource = armClient.PutResource;
@@ -28,7 +28,7 @@ public class Creator : ConsoleService
         return new DirectoryInfo(path);
     }
 
-    private static ServiceUri GetServiceUri(IConfiguration configuration, ArmClient armClient, DirectoryInfo serviceDirectory)
+    private static ServiceUri GetServiceUri(IConfiguration configuration, AzureEnvironment azureEnvironment, DirectoryInfo serviceDirectory)
     {
         var subscriptionId = configuration["AZURE_SUBSCRIPTION_ID"];
         var resourceGroupName = configuration["AZURE_RESOURCE_GROUP_NAME"];
@@ -293,10 +293,7 @@ public class Creator : ConsoleService
 
     private async Task<Unit> PutPolicy(Uri policyUri, FileInfo file, CancellationToken cancellationToken)
     {
-        // Check if custom policy exists
-        var fileToProcess= CheckIfCustomFileExists(file);
-
-        var policyText = await fileToProcess.ReadAsText(cancellationToken);
+        var policyText = await file.ReadAsText(cancellationToken);
 
         using var stream = new MemoryStream();
 
@@ -308,39 +305,12 @@ public class Creator : ConsoleService
         return await putResource(policyUri, stream, cancellationToken);
     }
 
-    private FileInfo CheckIfCustomFileExists(FileInfo file)
-    {
-        if (this.overlayDirectory != null)
-        {
-            if (!string.IsNullOrEmpty(file.DirectoryName))
-            {
-                string customDirectory = this.overlayDirectory.FullName;
-
-                // check if an overlay is provided
-                var filePathExcludingCurrentDirectory = file.FullName.Remove(0, this.serviceDirectory.FullName.Length);
-                string pathToCustomFile = string.Concat(customDirectory, filePathExcludingCurrentDirectory);
-
-                if (File.Exists(pathToCustomFile))
-                {
-                    FileInfo customfile = new FileInfo(pathToCustomFile);
-                    return customfile;
-                }
-
-            }
-
-        }
-        return file;
-    }
-
     private async Task<Unit> PutServiceDiagnosticInformation(FileInfo file, CancellationToken cancellationToken)
     {
         var diagnosticName = await Diagnostic.GetNameFromInformationFile(file, cancellationToken);
         var diagnosticUri = Diagnostic.GetUri(serviceUri, diagnosticName);
 
-        // Check if custom diagnostic file exists
-        var fileToProcess = CheckIfCustomFileExists(file);
-
-        using var fileStream = fileToProcess.OpenRead();
+        using var fileStream = file.OpenRead();
         return await putResource(diagnosticUri, fileStream, cancellationToken);
     }
 
