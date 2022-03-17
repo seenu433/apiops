@@ -1,4 +1,6 @@
-﻿namespace creator;
+﻿using Microsoft.Azure.Management.ResourceManager.Fluent;
+
+namespace creator;
 
 public static class Program
 {
@@ -24,19 +26,40 @@ public static class Program
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        services.AddTransient(GetTokenCredential)
+        services.AddSingleton(GetAzureEnvironment)
+                .AddTransient(GetTokenCredential)
                 .AddSingleton(GetArmClient)
                 .AddHostedService<Creator>();
     }
 
+    private static AzureEnvironment GetAzureEnvironment(IServiceProvider provider) =>
+        provider.GetRequiredService<IConfiguration>().TryGetValue("AZURE_CLOUD_ENVIRONMENT") switch
+        {
+            null => AzureEnvironment.AzureGlobalCloud,
+            nameof(AzureEnvironment.AzureGlobalCloud) => AzureEnvironment.AzureGlobalCloud,
+            nameof(AzureEnvironment.AzureChinaCloud) => AzureEnvironment.AzureChinaCloud,
+            nameof(AzureEnvironment.AzureUSGovernment) => AzureEnvironment.AzureUSGovernment,
+            nameof(AzureEnvironment.AzureGermanCloud) => AzureEnvironment.AzureGermanCloud,
+            _ => throw new InvalidOperationException($"AZURE_CLOUD_ENVIRONMENT is invalid. Valid values are {nameof(AzureEnvironment.AzureGlobalCloud)}, {nameof(AzureEnvironment.AzureChinaCloud)}, {nameof(AzureEnvironment.AzureUSGovernment)}, {nameof(AzureEnvironment.AzureGermanCloud)}")
+        };
+
     private static TokenCredential GetTokenCredential(IServiceProvider provider)
     {
         var configuration = provider.GetRequiredService<IConfiguration>();
-        var configurationSection = configuration.GetSection("AZURE_BEARER_TOKEN");
+        var token = configuration.TryGetValue("AZURE_BEARER_TOKEN");
 
-        return configurationSection.Exists()
-            ? new StaticTokenCredential(configurationSection.Value)
-            : new DefaultAzureCredential();
+        if (token is null)
+        {
+            var environment = provider.GetRequiredService<AzureEnvironment>();
+            return new DefaultAzureCredential(new DefaultAzureCredentialOptions
+            {
+                AuthorityHost = new Uri(environment.AuthenticationEndpoint)
+            });
+        }
+        else
+        {
+            return new StaticTokenCredential(token);
+        }
     }
 
     private static ArmClient GetArmClient(IServiceProvider provider)

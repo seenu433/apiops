@@ -1,19 +1,19 @@
+using Microsoft.Azure.Management.ResourceManager.Fluent;
+
 namespace creator;
 
 public class Creator : ConsoleService
 {
     private readonly ServiceUri serviceUri;
     private readonly DirectoryInfo serviceDirectory;
-    private readonly DirectoryInfo? overlayDirectory;
     private readonly CommitId? commitId;
     private readonly Func<Uri, CancellationToken, IAsyncEnumerable<JsonObject>> getResources;
     private readonly Func<Uri, Stream, CancellationToken, Task<Unit>> putResource;
     private readonly Func<Uri, CancellationToken, Task<Unit>> deleteResource;
 
-    public Creator(IHostApplicationLifetime applicationLifetime, ILogger<Creator> logger, IConfiguration configuration, ArmClient armClient) : base(applicationLifetime, logger)
+    public Creator(IHostApplicationLifetime applicationLifetime, ILogger<Creator> logger, IConfiguration configuration, ArmClient armClient, AzureEnvironment azureEnvironment) : base(applicationLifetime, logger)
     {
         this.serviceDirectory = GetServiceDirectory(configuration);
-        this.overlayDirectory = GetOverlayDirectory(configuration);
         this.serviceUri = GetServiceUri(configuration, armClient, serviceDirectory);
         this.commitId = TryGetCommitId(configuration);
         this.getResources = armClient.GetResources;
@@ -21,21 +21,11 @@ public class Creator : ConsoleService
         this.deleteResource = armClient.DeleteResource;
     }
 
-
     private static DirectoryInfo GetServiceDirectory(IConfiguration configuration)
     {
         var path = configuration["API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH"];
 
         return new DirectoryInfo(path);
-    }
-
-    private static DirectoryInfo? GetOverlayDirectory(IConfiguration configuration)
-    { 
-        var path = configuration["OVERLAY_PATH"];
-        if ( !string.IsNullOrEmpty(path) )
-            return new DirectoryInfo(path);
-        return null;
-        
     }
 
     private static ServiceUri GetServiceUri(IConfiguration configuration, ArmClient armClient, DirectoryInfo serviceDirectory)
@@ -45,7 +35,7 @@ public class Creator : ConsoleService
         var serviceInformationFile = serviceDirectory.GetFileInfo(Constants.ServiceInformationFileName);
         var serviceName = Service.GetNameFromInformationFile(serviceInformationFile, CancellationToken.None).GetAwaiter().GetResult();
 
-        var serviceUri = armClient.GetBaseUri()
+        var serviceUri = new Uri(azureEnvironment.ResourceManagerEndpoint)
                                   .AppendPath("subscriptions")
                                   .AppendPath(subscriptionId)
                                   .AppendPath("resourceGroups")

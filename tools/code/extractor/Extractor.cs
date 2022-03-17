@@ -1,4 +1,6 @@
-﻿namespace extractor;
+﻿using Microsoft.Azure.Management.ResourceManager.Fluent;
+
+namespace extractor;
 
 internal class Extractor : ConsoleService
 {
@@ -8,22 +10,22 @@ internal class Extractor : ConsoleService
     private readonly DirectoryInfo serviceOutputDirectory;
     private readonly ApiSpecificationFormat apiSpecificationFormat;
 
-    public Extractor(IHostApplicationLifetime applicationLifetime, ILogger<Extractor> logger, IConfiguration configuration, ArmClient armClient, NonAuthenticatedHttpClient nonAuthenticatedHttpClient) : base(applicationLifetime, logger)
+    public Extractor(IHostApplicationLifetime applicationLifetime, ILogger<Extractor> logger, IConfiguration configuration, ArmClient armClient, NonAuthenticatedHttpClient nonAuthenticatedHttpClient, AzureEnvironment azureEnvironment) : base(applicationLifetime, logger)
     {
         this.armClient = armClient;
         this.nonAuthenticatedHttpClient = nonAuthenticatedHttpClient;
-        serviceUri = GetServiceUri(configuration, armClient);
+        serviceUri = GetServiceUri(configuration, azureEnvironment);
         serviceOutputDirectory = GetOutputDirectory(configuration);
         apiSpecificationFormat = GetApiSpecificationFormat(configuration);
     }
 
-    private static ServiceUri GetServiceUri(IConfiguration configuration, ArmClient armClient)
+    private static ServiceUri GetServiceUri(IConfiguration configuration, AzureEnvironment azureEnvironment)
     {
         var subscriptionId = configuration["AZURE_SUBSCRIPTION_ID"];
         var resourceGroupName = configuration["AZURE_RESOURCE_GROUP_NAME"];
         var serviceName = configuration["API_MANAGEMENT_SERVICE_NAME"];
 
-        var serviceUri = armClient.GetBaseUri()
+        var serviceUri = new Uri(azureEnvironment.ResourceManagerEndpoint)
                                   .AppendPath("subscriptions")
                                   .AppendPath(subscriptionId)
                                   .AppendPath("resourceGroups")
