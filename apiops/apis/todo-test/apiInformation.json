@@ -1,0 +1,19 @@
+{
+  "name": "todo",
+  "properties": {
+    "apiRevision": "1",
+    "authenticationSettings": {},
+    "displayName": "todo-test",
+    "isCurrent": true,
+    "path": "todo",
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "https://apiops.azurewebsites.net",
+    "subscriptionKeyParameterNames": {
+      "header": "Ocp-Apim-Subscription-Key",
+      "query": "subscription-key"
+    },
+    "subscriptionRequired": false
+  }
+}

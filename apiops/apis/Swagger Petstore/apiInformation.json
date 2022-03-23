@@ -1,0 +1,22 @@
+{
+  "name": "swagger-petstore",
+  "properties": {
+    "apiRevision": "1",
+    "authenticationSettings": {},
+    "displayName": "Swagger Petstore",
+    "isCurrent": true,
+    "license": {
+      "name": "MIT"
+    },
+    "path": "",
+    "protocols": [
+      "http"
+    ],
+    "serviceUrl": "http://petstore.swagger.io/v1",
+    "subscriptionKeyParameterNames": {
+      "header": "Ocp-Apim-Subscription-Key",
+      "query": "subscription-key"
+    },
+    "subscriptionRequired": true
+  }
+}
