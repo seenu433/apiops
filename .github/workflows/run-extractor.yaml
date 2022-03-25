@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: artifacts-from-portal
-          path: ${{ GITHUB.WORKSPACE }}/${{ env.API_MANAGEMENT_SERVICE_NAME }}-({{ API_MANAGEMENT_ENVIRONMENT }}     
+          path: ${{ GITHUB.WORKSPACE }}/${{ env.API_MANAGEMENT_SERVICE_NAME }}-${{ API_MANAGEMENT_ENVIRONMENT }}     
           
   create-pull-request:
     needs: extract
@@ -60,7 +60,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: artifacts-from-portal
-          path: "${{ GITHUB.WORKSPACE }}/${{ env.API_MANAGEMENT_SERVICE_NAME }}-({{ API_MANAGEMENT_ENVIRONMENT }}"
+          path: "${{ GITHUB.WORKSPACE }}/${{ env.API_MANAGEMENT_SERVICE_NAME }}-${{ API_MANAGEMENT_ENVIRONMENT }}"
 
       - name: Create artifacts pull request
         uses: peter-evans/create-pull-request@v3
