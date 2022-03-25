@@ -38,7 +38,7 @@ jobs:
     with:
       API_MANAGEMENT_ENVIRONMENT: prod # change this to match the prod environment created in settings
       COMMIT_ID: ${{ needs.get-commit.outputs.commit_id }}
-      CONFIGURATION_YAML_PATH: ${{ GITHUB.WORKSPACE }}/configuration.prod.yaml # make sure the file is available at the root
+      CONFIGURATION_YAML_PATH: configuration.prod.yaml # make sure the file is available at the root
     secrets:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
