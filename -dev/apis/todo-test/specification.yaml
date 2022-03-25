@@ -1,0 +1,101 @@
+openapi: 3.0.1
+info:
+  title: todo-test
+  version: '1.0'
+servers:
+  - url: https://apiops.azure-api.net/todo
+paths:
+  /todo:
+    post:
+      summary: CreateTodo
+      description: CreateTodo
+      operationId: createtodo
+      responses:
+        '200':
+          description: ''
+    get:
+      summary: GetTodos
+      description: GetTodos
+      operationId: gettodos
+      responses:
+        '200':
+          description: ''
+  '/todo/{id}':
+    get:
+      summary: GetTodoById
+      description: GetTodoById
+      operationId: gettodobyid
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: ''
+    put:
+      summary: UpdateTodo
+      description: UpdateTodo
+      operationId: updatetodo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: ''
+    delete:
+      summary: DeleteTodo
+      description: DeleteTodo
+      operationId: deletetodo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: ''
+components:
+  schemas:
+    Todo:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        taskDescription:
+          type: string
+        isCompleted:
+          type: bool
+    Todos:
+      type: array
+      items:
+        $ref: '#/components/schemas/Todo'
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
