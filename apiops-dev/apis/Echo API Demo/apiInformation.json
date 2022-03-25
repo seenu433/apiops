@@ -1,0 +1,14 @@
+{
+  "name": "echo-api",
+  "properties": {
+    "path": "echo",
+    "displayName": "Echo API Demo",
+    "apiRevision": "1",
+    "isCurrent": true,
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "http://echoapi.cloudapp.net/api",
+    "subscriptionRequired": true
+  }
+}
