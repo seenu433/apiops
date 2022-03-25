@@ -26,12 +26,12 @@ jobs:
       AZURE_RESOURCE_GROUP_NAME: apim-devops
       API_MANAGEMENT_SERVICE_NAME: apiops
       API_MANAGEMENT_ENVIRONMENT: dev    
+      COMMIT_ID: ${{ needs.get-commit.outputs.commit_id }} 
     secrets:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      COMMIT_ID: ${{ needs.get-commit.outputs.commit_id }}      
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}     
   create-prod:
     needs: [get-commit, create-dev]
     uses: ./.github/workflows/run-extractor-with-env.yaml
