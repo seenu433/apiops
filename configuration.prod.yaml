@@ -1,4 +1,4 @@
-apimServiceName: apim-prod-wk-03022022
+apimServiceName: apiops
 namedValues:
   - name: TestToken
     displayName: TestToken
