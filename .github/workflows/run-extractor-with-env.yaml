@@ -11,21 +11,12 @@ on:
         type: string
       API_MANAGEMENT_ENVIRONMENT: 
         required: true
-        type: string        
-    secrets:
-      AZURE_CLIENT_ID:
-        required: true
-      AZURE_CLIENT_SECRET:
-        required: true
-      AZURE_TENANT_ID:
-        required: true
-      AZURE_SUBSCRIPTION_ID:
-        required: true        
+        type: string            
         
 jobs:
   extract:
     runs-on: ubuntu-latest
-
+    environment: ${{ inputs.API_MANAGEMENT_ENVIRONMENT }}
     steps:
       - uses: actions/checkout@v2
           
