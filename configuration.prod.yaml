@@ -2,7 +2,7 @@ apimServiceName: apim-prod-wk-03022022
 namedValues:
   - name: TestToken
     displayName: TestToken
-    value: prodtoken
+    value: myprodtoken
 #products:
 #  - name: vipproduct
 #    description: This is a custom description from the config file
