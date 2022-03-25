@@ -3,15 +3,10 @@ name: Run Extractor
 on:
   workflow_dispatch:
   
-env:
-  AZURE_RESOURCE_GROUP_NAME: apim-devops  # Replace this value with your resource group name
-  API_MANAGEMENT_SERVICE_NAME: apiops  # Replace this value with yourapim instance name 
-  API_MANAGEMENT_ENVIRONMENT: dev  # Replace this value with yourapim instance name 
-
 jobs:
   extract:
     uses: ./.github/workflows/run-extractor-with-env.yaml
     with:
-      AZURE_RESOURCE_GROUP_NAME: ${{ env.AZURE_RESOURCE_GROUP_NAME }}
-      API_MANAGEMENT_SERVICE_NAME: ${{ env.API_MANAGEMENT_SERVICE_NAME }}
-      API_MANAGEMENT_ENVIRONMENT: ${{ env.API_MANAGEMENT_ENVIRONMENT }}        
+      AZURE_RESOURCE_GROUP_NAME: apim-devops
+      API_MANAGEMENT_SERVICE_NAME: apiops
+      API_MANAGEMENT_ENVIRONMENT: dev    
