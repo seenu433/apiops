@@ -7,8 +7,8 @@ jobs:
   extract:
     uses: ./.github/workflows/run-extractor-with-env.yaml
     with:  
-      API_MANAGEMENT_ENVIRONMENT: dev
-      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
+      API_MANAGEMENT_ENVIRONMENT: dev # change this to match the dev environment created in settings
+      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts # change this to the artifacts folder
     secrets:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
