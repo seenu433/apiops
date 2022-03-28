@@ -1,9 +1,0 @@
-{
-  "name": "TestKey",
-  "properties": {
-    "displayName": "TestKey",
-    "secret": false,
-    "tags": [],
-    "value": "TestValue"
-  }
-}
