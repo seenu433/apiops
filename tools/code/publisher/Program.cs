@@ -42,7 +42,7 @@ public static class Program
         services.AddSingleton(GetAzureEnvironment)
                 .AddTransient(GetTokenCredential)
                 .AddSingleton<AzureHttpClient>()
-                .AddHostedService<Creator>();
+                .AddHostedService<Publisher>();
     }
 
     private static AzureEnvironment GetAzureEnvironment(IServiceProvider provider) =>
