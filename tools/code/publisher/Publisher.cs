@@ -13,7 +13,7 @@ using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace creator;
+namespace publisher;
 
 internal class Publisher : BackgroundService
 {
