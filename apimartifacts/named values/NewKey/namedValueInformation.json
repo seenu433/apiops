@@ -1,0 +1,9 @@
+{
+  "name": "NewKey",
+  "properties": {
+    "displayName": "NewKey",
+    "secret": false,
+    "tags": [],
+    "value": "NewValue"
+  }
+}
