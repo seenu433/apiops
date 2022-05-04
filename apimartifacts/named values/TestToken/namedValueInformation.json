@@ -1,0 +1,9 @@
+{
+  "name": "TestToken",
+  "properties": {
+    "displayName": "TestToken",
+    "secret": false,
+    "tags": [],
+    "value": "TestToken"
+  }
+}
