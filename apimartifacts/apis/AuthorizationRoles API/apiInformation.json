@@ -1,0 +1,15 @@
+{
+  "name": "authorizationroles-api",
+  "properties": {
+    "path": "epri",
+    "displayName": "AuthorizationRoles API",
+    "apiRevision": "1",
+    "description": "product-R Authorization Roles REST APIs,",
+    "isCurrent": true,
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "https://eprinp.azure-api.us/dev/userapprole",
+    "subscriptionRequired": true
+  }
+}
