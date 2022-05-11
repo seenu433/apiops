@@ -1,0 +1,10 @@
+{
+  "name": "manutest",
+  "properties": {
+    "displayName": "manutest",
+    "approvalRequired": false,
+    "description": "manutest",
+    "state": "published",
+    "subscriptionRequired": true
+  }
+}

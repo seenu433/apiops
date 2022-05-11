@@ -1,0 +1,14 @@
+{
+  "name": "627c49128f07325344490ec4",
+  "properties": {
+    "path": "todo-clone",
+    "displayName": "todo-test (clone)",
+    "apiRevision": "1",
+    "isCurrent": true,
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "https://apiops.azurewebsites.net",
+    "subscriptionRequired": false
+  }
+}
