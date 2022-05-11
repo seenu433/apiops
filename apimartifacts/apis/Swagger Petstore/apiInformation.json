@@ -1,0 +1,14 @@
+{
+  "name": "swagger-petstore",
+  "properties": {
+    "path": "",
+    "displayName": "Swagger Petstore",
+    "apiRevision": "1",
+    "isCurrent": true,
+    "protocols": [
+      "http"
+    ],
+    "serviceUrl": "http://petstore.swagger.io/v1",
+    "subscriptionRequired": true
+  }
+}
