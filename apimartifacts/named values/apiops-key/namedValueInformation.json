@@ -1,0 +1,12 @@
+{
+  "name": "apiops-key",
+  "properties": {
+    "displayName": "apiops-key",
+    "secret": true,
+    "tags": [
+      "key",
+      "function",
+      "auto"
+    ]
+  }
+}
