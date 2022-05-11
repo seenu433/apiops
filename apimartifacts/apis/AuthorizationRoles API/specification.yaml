@@ -1,0 +1,1453 @@
+openapi: 3.0.1
+info:
+  title: AuthorizationRoles API
+  description: 'product-R Authorization Roles REST APIs,'
+  version: '1.0'
+servers:
+  - url: https://apiops.azure-api.net/epri
+paths:
+  /application:
+    get:
+      tags:
+        - Application
+      summary: Returns all Product R applications in database.
+      description: Returns all Product R applications in database.
+      operationId: get-application
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Application
+      summary: Adds an application to the database
+      description: Adds an application to the database
+      operationId: post-application
+      requestBody:
+        description: Product R Application object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrApplication'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrApplication'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrApplication'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+    put:
+      tags:
+        - Application
+      summary: Updates an existing application's properties
+      description: Updates an existing application's properties
+      operationId: put-application
+      requestBody:
+        description: Product R Application object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrApplication'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrApplication'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrApplication'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+  '/application/{userID}/applications':
+    get:
+      tags:
+        - Application
+      summary: Returns all Product R applications for the specified User.
+      description: Returns all Product R applications for the specified User.
+      operationId: get-application-userid-applications
+      parameters:
+        - name: userID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. User's unique Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: User's unique Product R identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+  '/application/{applicationID}':
+    get:
+      tags:
+        - Application
+      summary: Returns individual application detail.
+      description: Returns individual application detail.
+      operationId: get-application-applicationid
+      parameters:
+        - name: applicationID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Application's unique Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: Application's unique Product R identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+        - Application
+      summary: Deletes an existing application's properties
+      description: Deletes an existing application's properties
+      operationId: delete-application-applicationid
+      parameters:
+        - name: applicationID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Product R application unique identifier
+          required: true
+          schema:
+            type: integer
+            description: Product R application unique identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrApplication'
+  /authentication/login:
+    get:
+      tags:
+        - Authentication
+      summary: 'Redirects to EPRI login page, and then to ProductR framework callback and then to application callback with UserAppRole and AccessToken'
+      description: Redirects to EPRI login page where user can enter username/password and then to ProductR framework callback and then to application callback with UserAppRole and AccessToken information
+      operationId: get-authentication-login
+      parameters:
+        - name: productID
+          in: query
+          description: EPRI ProductID
+          schema:
+            type: string
+            description: EPRI ProductID
+            nullable: true
+        - name: GUID
+          in: query
+          description: GUID generated by app
+          schema:
+            type: string
+            description: GUID generated by app
+            nullable: true
+        - name: appCallbackURL
+          in: query
+          description: application callback URL
+          schema:
+            type: string
+            description: application callback URL
+            nullable: true
+        - name: appType
+          in: query
+          description: application Type (web or mobile)
+          schema:
+            type: string
+            description: application Type (web or mobile)
+            nullable: true
+      responses:
+        '200':
+          description: Success
+  /authentication/callback:
+    get:
+      tags:
+        - Authentication
+      summary: Callback API from PING login page.
+      description: '??'
+      operationId: get-authentication-callback
+      parameters:
+        - name: code
+          in: query
+          description: Auth Token
+          schema:
+            type: string
+            description: Auth Token
+            nullable: true
+        - name: state
+          in: query
+          description: '????'
+          schema:
+            type: string
+            description: '????'
+            nullable: true
+      responses:
+        '200':
+          description: Success
+  /authentication/epriloginstatus:
+    get:
+      tags:
+        - Authentication
+      summary: Check validity of EPRI access token. End point returns true if the request passes jwt token validation in middleware.
+      description: 'Json isAuthorized=true.  If not authorized, the middleware returns JSON isAuthorized=false.  the http status code can also be checked (200 vs 401)'
+      operationId: get-authentication-epriloginstatus
+      responses:
+        '200':
+          description: Success
+  /authentication/testapplicationcallback:
+    get:
+      tags:
+        - Authentication
+      summary: Dummy Test Application EndPoint Callback
+      description: This is a Test Application callback that just returns the same payload.
+      operationId: get-authentication-testapplicationcallback
+      parameters:
+        - name: data
+          in: query
+          description: 'Encoded response payload from ProductR Auth. Should include UserAppRole, GUID, and AccessToken information.'
+          schema:
+            type: string
+            description: 'Encoded response payload from ProductR Auth. Should include UserAppRole, GUID, and AccessToken information.'
+            nullable: true
+      responses:
+        '200':
+          description: Success
+  '/authorization/{productID}/{userName}':
+    get:
+      tags:
+        - AuthZRole
+      summary: Returns the user role that corresponds to the specified productID and userName combination.
+      description: Also updates the Last Login datetime stamp associated with the specified user and product to the current datetime.
+      operationId: get-authorization-productid-username
+      parameters:
+        - name: productID
+          in: path
+          description: An EPRI Product ID.
+          required: true
+          schema:
+            type: string
+            description: An EPRI Product ID.
+            nullable: true
+        - name: userName
+          in: path
+          description: An EPRI CRM login/user name.
+          required: true
+          schema:
+            type: string
+            description: An EPRI CRM login/user name.
+            nullable: true
+      responses:
+        '200':
+          description: Success
+  '/authorization/product/{productID}':
+    get:
+      tags:
+        - AuthZRole
+      summary: Returns the details that corresponds to the specified EPRI productID.
+      description: Returns the details that corresponds to the specified EPRI productID.
+      operationId: get-authorization-product-productid
+      parameters:
+        - name: productID
+          in: path
+          description: An EPRI Product ID.
+          required: true
+          schema:
+            type: string
+            description: An EPRI Product ID.
+            nullable: true
+      responses:
+        '200':
+          description: Success
+  '/authorization/company/{companyID}':
+    get:
+      tags:
+        - AuthZRole
+      summary: Returns the details that corresponds to the specified EPRI CompanyID.
+      description: Product-R acts as a middle-man to return information from CRM.
+      operationId: get-authorization-company-companyid
+      parameters:
+        - name: companyID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. An EPRI Company ID.
+          required: true
+          schema:
+            type: integer
+            description: An EPRI Company ID.
+            format: int32
+      responses:
+        '200':
+          description: Success
+  /company:
+    get:
+      tags:
+        - Company
+      summary: Returns all Product R companies in database.
+      description: Returns all Product R companies in database.
+      operationId: get-company
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Company
+      summary: Adds a company to the database
+      description: Adds a company to the database
+      operationId: post-company
+      requestBody:
+        description: Product R Company object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrCompany'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrCompany'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrCompany'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+    put:
+      tags:
+        - Company
+      summary: Updates an existing company's properties
+      description: Updates an existing company's properties
+      operationId: put-company
+      requestBody:
+        description: Product R Company object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrCompany'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrCompany'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrCompany'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+  '/company/{companyID}':
+    get:
+      tags:
+        - Company
+      summary: Returns individual company detail.
+      description: Returns individual company detail.
+      operationId: get-company-companyid
+      parameters:
+        - name: companyID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Company's unique Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: Company's unique Product R identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+        - Company
+      summary: Deletes an existing company
+      description: Deletes an existing company
+      operationId: delete-company-companyid
+      parameters:
+        - name: companyID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Product R Company unique identifier
+          required: true
+          schema:
+            type: integer
+            description: Product R Company unique identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrCompany'
+  '/role/{applicationID}/roles':
+    get:
+      tags:
+        - Role
+      summary: Returns all Product R Roles for the specified Application.
+      description: Returns all Product R Roles for the specified Application.
+      operationId: get-role-applicationid-roles
+      parameters:
+        - name: applicationID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Application's unique Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: Application's unique Product R identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+  '/role/{roleID}':
+    get:
+      tags:
+        - Role
+      summary: Returns individual Role detail.
+      description: Returns individual Role detail.
+      operationId: get-role-roleid
+      parameters:
+        - name: roleID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Role's unique Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: Role's unique Product R identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+        - Role
+      summary: Deletes an existing Role's properties
+      description: Deletes an existing Role's properties
+      operationId: delete-role-roleid
+      parameters:
+        - name: roleID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Product R Role unique identifier
+          required: true
+          schema:
+            type: integer
+            description: Product R Role unique identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+  /role:
+    post:
+      tags:
+        - Role
+      summary: Adds a role to the database
+      description: Adds a role to the database
+      operationId: post-role
+      requestBody:
+        description: Product R Role object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrRole'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrRole'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrRole'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+    put:
+      tags:
+        - Role
+      summary: Updates an existing Role's properties
+      description: Updates an existing Role's properties
+      operationId: put-role
+      requestBody:
+        description: Product R Role object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrRole'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrRole'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrRole'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+  '/role/{roleID}/permissions':
+    get:
+      tags:
+        - Role
+      summary: Returns individual Role's associated permissions
+      description: Returns individual Role's associated permissions
+      operationId: get-role-roleid-permissions
+      parameters:
+        - name: roleID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Role's unique Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: Role's unique Product R identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+  /role/permission:
+    post:
+      tags:
+        - Role
+      summary: Adds a permission to the database
+      description: Adds a permission to the database
+      operationId: post-role-permission
+      requestBody:
+        description: Product R Permission object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrRole'
+    put:
+      tags:
+        - Role
+      summary: Updates an existing Permission's properties
+      description: Updates an existing Permission's properties
+      operationId: put-role-permission
+      requestBody:
+        description: Product R Permission object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+  '/role/{permissionID}/permission':
+    delete:
+      tags:
+        - Role
+      summary: Deletes an existing Permission's properties
+      description: Deletes an existing Permission's properties
+      operationId: delete-role-permissionid-permission
+      parameters:
+        - name: permissionID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Product R Permission unique identifier
+          required: true
+          schema:
+            type: integer
+            description: Product R Permission unique identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+  /user:
+    get:
+      tags:
+        - User
+      summary: Returns all Product R users in database.
+      description: Returns all Product R users in database.
+      operationId: get-user
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - User
+      summary: Adds a user to the database
+      description: Adds a user to the database
+      operationId: post-user
+      requestBody:
+        description: Product R User object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrUser'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrUser'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrUser'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+    put:
+      tags:
+        - User
+      summary: Updates an existing user's properties
+      description: Updates an existing user's properties
+      operationId: put-user
+      requestBody:
+        description: Product R User object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrUser'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrUser'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrUser'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+  '/user/{applicationID}/{isAssociated}':
+    get:
+      tags:
+        - User
+      summary: Returns all Product R users who are or are not associated with the specified Application.
+      description: Returns all Product R users who are or are not associated with the specified Application.
+      operationId: get-user-applicationid-isassociated
+      parameters:
+        - name: applicationID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Application's unique Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: Application's unique Product R identifier
+            format: int32
+        - name: isAssociated
+          in: path
+          description: True to return users associated with the application.  False to return users not associated with the application
+          required: true
+          schema:
+            type: boolean
+            description: True to return users associated with the application.  False to return users not associated with the application
+      responses:
+        '200':
+          description: Success
+  '/user/{userID}':
+    get:
+      tags:
+        - User
+      summary: Returns individual user detail.
+      description: Returns individual user detail.
+      operationId: get-user-userid
+      parameters:
+        - name: userID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. User's unique Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: User's unique Product R identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+        - User
+      summary: Deletes an existing user
+      description: Deletes an existing user
+      operationId: delete-user-userid
+      parameters:
+        - name: userID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Product R User unique identifier
+          required: true
+          schema:
+            type: integer
+            description: Product R User unique identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrUser'
+  /userapprole:
+    get:
+      tags:
+        - UserAppRole
+      summary: "Returns all product-user-role associations in database.\r\nThis function only to be used by Administrators."
+      description: "Returns all product-user-role associations in database.\r\nThis function only to be used by Administrators."
+      operationId: get-userapprole
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - UserAppRole
+      summary: Creates a User - Application - Role association
+      description: Creates a User - Application - Role association
+      operationId: post-userapprole
+      requestBody:
+        description: Product R User-App-Role object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+    put:
+      tags:
+        - UserAppRole
+      summary: Updates an existing User - Application - Role association
+      description: Updates an existing User - Application - Role association
+      operationId: put-userapprole
+      requestBody:
+        description: Product R User-App-Role object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+  '/userapprole/{roleID}/{uarID}/permissions':
+    get:
+      tags:
+        - UserAppRole
+      summary: "Returns all product-user-role permissions for specified role \r\nThis function only to be used by Administrators."
+      description: "Returns all product-user-role permissions for specified role \r\nThis function only to be used by Administrators."
+      operationId: get-userapprole-roleid-uarid-permissions
+      parameters:
+        - name: roleID
+          in: path
+          description: Format - int32. Format - int32. Format - int32.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: uarID
+          in: path
+          description: Format - int32. Format - int32. Format - int32.
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+  '/userapprole/{uarcID}':
+    get:
+      tags:
+        - UserAppRole
+      summary: Returns User - Application - Role association.
+      description: Returns User - Application - Role association.
+      operationId: get-userapprole-uarcid
+      parameters:
+        - name: uarcID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. User-App-Role Product R identifier
+          required: true
+          schema:
+            type: integer
+            description: User-App-Role Product R identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+    put:
+      tags:
+        - UserAppRole
+      summary: Updates an existing User - Application - Role permission
+      description: Updates an existing User - Application - Role permission
+      operationId: put-userapprole-uarcid
+      parameters:
+        - name: uarcID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Product R User-App-Role association identifier
+          required: true
+          schema:
+            type: integer
+            description: Product R User-App-Role association identifier
+            format: int32
+      requestBody:
+        description: Product R User-App-Role permission object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrPermission'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrPermission'
+    delete:
+      tags:
+        - UserAppRole
+      summary: Deletes an existing User-Application-Role association
+      description: Deletes an existing User-Application-Role association
+      operationId: delete-userapprole-uarcid
+      parameters:
+        - name: uarcID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Product R User-App-Role unique identifier
+          required: true
+          schema:
+            type: integer
+            description: Product R User-App-Role unique identifier
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+  '/userapprole/{applicationID}/{userID}/subscription':
+    get:
+      tags:
+        - UserAppRole
+      summary: Returns User - Application - Role association for API subscription key purposes
+      description: Returns User - Application - Role association for API subscription key purposes
+      operationId: get-userapprole-applicationid-userid-subscription
+      parameters:
+        - name: applicationID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. Application ID
+          required: true
+          schema:
+            type: integer
+            description: Application ID
+            format: int32
+        - name: userID
+          in: path
+          description: Format - int32. Format - int32. Format - int32. User
+          required: true
+          schema:
+            type: integer
+            description: User
+            format: int32
+      responses:
+        '200':
+          description: Success
+  /userapprole/subscription:
+    put:
+      tags:
+        - UserAppRole
+      summary: Updates subscription key only - just adds it if it doesn't exist.
+      description: Updates subscription key only - just adds it if it doesn't exist.
+      operationId: put-userapprole-subscription
+      requestBody:
+        description: Product R User-App-Role object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PrUserAppRoleCompany'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrUserAppRoleCompany'
+components:
+  schemas:
+    PrDataClassification:
+      type: object
+      properties:
+        dataClassificationId:
+          type: integer
+          format: int32
+        dataClassification:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        dataClassificationDescription:
+          maxLength: 255
+          minLength: 0
+          type: string
+          nullable: true
+        prApplications:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrApplication'
+          nullable: true
+      additionalProperties: false
+    PrCompany:
+      type: object
+      properties:
+        companyId:
+          type: integer
+          format: int32
+        companyName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        companySapid:
+          type: integer
+          format: int32
+          nullable: true
+        companyShortName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        prUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrUser'
+          nullable: true
+      additionalProperties: false
+    PrUser:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int32
+        firstName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        lastName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        middleName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        userName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        email:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        userSapid:
+          type: integer
+          format: int32
+          nullable: true
+        isprAdmin:
+          type: boolean
+          nullable: true
+        companyId:
+          type: integer
+          format: int32
+          nullable: true
+        companySapid:
+          type: integer
+          format: int32
+          nullable: true
+        companyName:
+          maxLength: 100
+          minLength: 0
+          type: string
+          nullable: true
+        lastLogin:
+          type: string
+          format: date-time
+          nullable: true
+        recordCreated:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModified:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModifiedBy:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        company:
+          $ref: '#/components/schemas/PrCompany'
+        prUserAppRoleCompanies:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrUserAppRoleCompany'
+          nullable: true
+      additionalProperties: false
+    PrUserAppRoleCompany:
+      type: object
+      properties:
+        uarcid:
+          type: integer
+          format: int32
+        userId:
+          type: integer
+          format: int32
+          nullable: true
+        applicationId:
+          type: integer
+          format: int32
+          nullable: true
+        roleId:
+          type: integer
+          format: int32
+          nullable: true
+        targetCompanyId:
+          type: integer
+          format: int32
+          nullable: true
+        apisubscriptionKey:
+          maxLength: 100
+          minLength: 0
+          type: string
+          nullable: true
+        lastLogin:
+          type: string
+          format: date-time
+          nullable: true
+        recordCreated:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModified:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModifiedBy:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        application:
+          $ref: '#/components/schemas/PrApplication'
+        role:
+          $ref: '#/components/schemas/PrRole'
+        user:
+          $ref: '#/components/schemas/PrUser'
+        prUserAppRoleCompanyPermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrUserAppRoleCompanyPermission'
+          nullable: true
+      additionalProperties: false
+    PrUserAppRoleCompanyPermission:
+      type: object
+      properties:
+        uarcpid:
+          type: integer
+          format: int32
+        uarcid:
+          type: integer
+          format: int32
+          nullable: true
+        permissionId:
+          type: integer
+          format: int32
+          nullable: true
+        recordCreated:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModified:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModifiedBy:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        permission:
+          $ref: '#/components/schemas/PrPermission'
+        uarc:
+          $ref: '#/components/schemas/PrUserAppRoleCompany'
+      additionalProperties: false
+    PrPermission:
+      type: object
+      properties:
+        permissionId:
+          type: integer
+          format: int32
+        roleId:
+          type: integer
+          format: int32
+          nullable: true
+        permissionName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        permissionDescription:
+          maxLength: 255
+          minLength: 0
+          type: string
+          nullable: true
+        isDefault:
+          type: boolean
+          nullable: true
+        recordCreated:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModified:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModifiedBy:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        role:
+          $ref: '#/components/schemas/PrRole'
+        prUserAppRoleCompanyPermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrUserAppRoleCompanyPermission'
+          nullable: true
+        isGranted:
+          type: boolean
+        uarcId:
+          type: integer
+          format: int32
+          nullable: true
+        uarcpId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    PrRole:
+      type: object
+      properties:
+        roleId:
+          type: integer
+          format: int32
+        roleName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        roleDescription:
+          maxLength: 500
+          minLength: 0
+          type: string
+          nullable: true
+        applicationId:
+          type: integer
+          format: int32
+          nullable: true
+        isDefault:
+          type: boolean
+          nullable: true
+        isEpridefault:
+          type: boolean
+          nullable: true
+        recordCreated:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModified:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModifiedBy:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        application:
+          $ref: '#/components/schemas/PrApplication'
+        prPermissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrPermission'
+          nullable: true
+        prUserAppRoleCompanies:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrUserAppRoleCompany'
+          nullable: true
+      additionalProperties: false
+    PrApplication:
+      type: object
+      properties:
+        applicationId:
+          type: integer
+          format: int32
+        applicationName:
+          maxLength: 100
+          minLength: 0
+          type: string
+          nullable: true
+        applicationShortName:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        applicationType:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        applicationProductId:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        applicationSwsid:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        defaultDataClassification:
+          type: integer
+          format: int32
+          nullable: true
+        dataStoreType:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        dataStoreLocation:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        recordCreated:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModified:
+          type: string
+          format: date-time
+          nullable: true
+        recordLastModifiedBy:
+          maxLength: 50
+          minLength: 0
+          type: string
+          nullable: true
+        defaultDataClassificationNavigation:
+          $ref: '#/components/schemas/PrDataClassification'
+        prRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrRole'
+          nullable: true
+        prUserAppRoleCompanies:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrUserAppRoleCompany'
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
