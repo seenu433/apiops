@@ -1,0 +1,14 @@
+{
+  "name": "todo-vs",
+  "properties": {
+    "path": "todo-vs",
+    "displayName": "todo-test-vs",
+    "apiRevision": "1",
+    "isCurrent": true,
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "https://apiops.azurewebsites.net",
+    "subscriptionRequired": false
+  }
+}
