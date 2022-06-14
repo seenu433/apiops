@@ -3,7 +3,8 @@
   "properties": {
     "path": "echo",
     "displayName": "Echo API Demo",
-    "apiRevision": "1",
+    "apiRevision": "3",
+    "apiRevisionDescription": "test",
     "isCurrent": true,
     "protocols": [
       "https"

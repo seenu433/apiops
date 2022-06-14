@@ -1,0 +1,14 @@
+{
+  "name": "nycirbinfowebapi",
+  "properties": {
+    "path": "nysif",
+    "displayName": "NYCIRBInfoWebApi",
+    "apiRevision": "1",
+    "isCurrent": true,
+    "protocols": [
+      "https"
+    ],
+    "serviceUrl": "https://nycirbinfowebapi/",
+    "subscriptionRequired": true
+  }
+}

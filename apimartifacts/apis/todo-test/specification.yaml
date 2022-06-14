@@ -1,9 +1,9 @@
 openapi: 3.0.1
 info:
   title: todo-test
-  version: '1.0'
+  version: v1
 servers:
-  - url: https://apiops.azure-api.net/todo
+  - url: https://apiops.azure-api.net/todo/v1
 paths:
   /todo:
     post:
