@@ -1,0 +1,16 @@
+{
+  "name": "epri-box-download-service",
+  "properties": {
+    "path": "epri-box-download-service",
+    "displayName": "EPRI Box Download Service",
+    "apiRevision": "1",
+    "description": "REST APIs for Box Generic Download Services",
+    "isCurrent": true,
+    "protocols": [
+      "http",
+      "https"
+    ],
+    "serviceUrl": "https://apim-qa.epri.com/boxdownload",
+    "subscriptionRequired": true
+  }
+}

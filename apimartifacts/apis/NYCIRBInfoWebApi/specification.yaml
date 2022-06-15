@@ -1,0 +1,786 @@
+openapi: 3.0.1
+info:
+  title: NYCIRBInfoWebApi
+  version: '1.0'
+servers:
+  - url: https://apiops.azure-api.net/nysif
+paths:
+  /api/NYCIRBInfo/APIVersion:
+    get:
+      tags:
+        - NYCIRBInfo
+      summary: /api/NYCIRBInfo/APIVersion - GET
+      operationId: get-api-nycirbinfo-apiversion
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: string
+              example: string
+            text/json:
+              schema:
+                type: string
+              example: string
+  '/api/NYCIRBInfo/GetFEINCoverage/{FEIN}/{Key}':
+    get:
+      tags:
+        - NYCIRBInfo
+      summary: '/api/NYCIRBInfo/GetFEINCoverage/{FEIN}/{Key} - GET'
+      operationId: get-api-nycirbinfo-getfeincoverage-fein-key
+      parameters:
+        - name: FEIN
+          in: path
+          required: true
+          schema:
+            type: string
+            nullable: true
+        - name: Key
+          in: path
+          required: true
+          schema:
+            type: string
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: string
+              example: string
+            text/json:
+              schema:
+                type: string
+              example: string
+  /api/NYCIRBInfo/PostFEINCoverage:
+    post:
+      tags:
+        - NYCIRBInfo
+      summary: /api/NYCIRBInfo/PostFEINCoverage - POST
+      operationId: post-api-nycirbinfo-postfeincoverage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputData'
+            example:
+              key: string
+              fein: string
+          text/json:
+            schema:
+              $ref: '#/components/schemas/InputData'
+            example:
+              key: string
+              fein: string
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/InputData'
+            example:
+              key: string
+              fein: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: string
+              example: string
+            text/json:
+              schema:
+                type: string
+              example: string
+  /api/NYCIRBInfo/RatingInfo:
+    post:
+      tags:
+        - NYCIRBInfo
+      summary: /api/NYCIRBInfo/RatingInfo - POST
+      operationId: post-api-nycirbinfo-ratinginfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RatingInfo'
+            example:
+              clientId: string
+              apiKey: string
+              ratingDate: string
+              useNCCI: true
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RatingInfo'
+            example:
+              clientId: string
+              apiKey: string
+              ratingDate: string
+              useNCCI: true
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RatingInfo'
+            example:
+              clientId: string
+              apiKey: string
+              ratingDate: string
+              useNCCI: true
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: string
+              example: string
+            text/json:
+              schema:
+                type: string
+              example: string
+  /api/NYCIRBInfo/FeinRatingInfo:
+    post:
+      tags:
+        - NYCIRBInfo
+      summary: /api/NYCIRBInfo/FeinRatingInfo - POST
+      operationId: post-api-nycirbinfo-feinratinginfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Fein_RatingInfo'
+            example:
+              fein: string
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Fein_RatingInfo'
+            example:
+              fein: string
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Fein_RatingInfo'
+            example:
+              fein: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: string
+              example: string
+            text/json:
+              schema:
+                type: string
+              example: string
+  /api/NYCIRBInfo/ModEstimatorDetails:
+    post:
+      tags:
+        - NYCIRBInfo
+      summary: /api/NYCIRBInfo/ModEstimatorDetails - POST
+      operationId: post-api-nycirbinfo-modestimatordetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rootobject'
+            example:
+              risk:
+                riskName: string
+                ratingEffectiveDate: string
+                policies:
+                  - entityName: string
+                    carrierID: string
+                    policyNumber: string
+                    policyEffectiveDate: string
+                    policyExpiredDate: string
+                    exposures:
+                      - classCode: string
+                        isUSLHW: true
+                        exposure: 0
+                        elr: 0
+                        dratio: 0
+                        exposureMultiplier: 0
+                        expectedLosses: 0
+                        expectedPrimaryLosses: 0
+                        expectedExcessLosses: 0
+                    losses:
+                      - claimNumber: string
+                        injuryType: 0
+                        claimStatus: string
+                        totalLosses: 0
+                        catastropheCode: 0
+                        overSplitPoint: true
+                        actualLoss: 0
+                        actualPrimaryLoss: 0
+                        isUSLHW: true
+                    summary:
+                      exposure: 0
+                      expectedLosses: 0
+                      expectedPrimaryLosses: 0
+                      expectedExcessLosses: 0
+                      numberOfClaims: 0
+                      actualLosses: 0
+                      actualPrimaryLosses: 0
+                results:
+                  expectedLosses: 0
+                  expectedPrimaryLosses: 0
+                  expectedExcessLosses: 0
+                  numberOfClaims: 0
+                  actualLosses: 0
+                  actualPrimaryLosses: 0
+                  splitPoint: 0
+                  modFactor: 0
+                  cappedModFactor: 0
+                  finalModFactor: 0
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Rootobject'
+            example:
+              risk:
+                riskName: string
+                ratingEffectiveDate: string
+                policies:
+                  - entityName: string
+                    carrierID: string
+                    policyNumber: string
+                    policyEffectiveDate: string
+                    policyExpiredDate: string
+                    exposures:
+                      - classCode: string
+                        isUSLHW: true
+                        exposure: 0
+                        elr: 0
+                        dratio: 0
+                        exposureMultiplier: 0
+                        expectedLosses: 0
+                        expectedPrimaryLosses: 0
+                        expectedExcessLosses: 0
+                    losses:
+                      - claimNumber: string
+                        injuryType: 0
+                        claimStatus: string
+                        totalLosses: 0
+                        catastropheCode: 0
+                        overSplitPoint: true
+                        actualLoss: 0
+                        actualPrimaryLoss: 0
+                        isUSLHW: true
+                    summary:
+                      exposure: 0
+                      expectedLosses: 0
+                      expectedPrimaryLosses: 0
+                      expectedExcessLosses: 0
+                      numberOfClaims: 0
+                      actualLosses: 0
+                      actualPrimaryLosses: 0
+                results:
+                  expectedLosses: 0
+                  expectedPrimaryLosses: 0
+                  expectedExcessLosses: 0
+                  numberOfClaims: 0
+                  actualLosses: 0
+                  actualPrimaryLosses: 0
+                  splitPoint: 0
+                  modFactor: 0
+                  cappedModFactor: 0
+                  finalModFactor: 0
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Rootobject'
+            example:
+              risk:
+                riskName: string
+                ratingEffectiveDate: string
+                policies:
+                  - entityName: string
+                    carrierID: string
+                    policyNumber: string
+                    policyEffectiveDate: string
+                    policyExpiredDate: string
+                    exposures:
+                      - classCode: string
+                        isUSLHW: true
+                        exposure: 0
+                        elr: 0
+                        dratio: 0
+                        exposureMultiplier: 0
+                        expectedLosses: 0
+                        expectedPrimaryLosses: 0
+                        expectedExcessLosses: 0
+                    losses:
+                      - claimNumber: string
+                        injuryType: 0
+                        claimStatus: string
+                        totalLosses: 0
+                        catastropheCode: 0
+                        overSplitPoint: true
+                        actualLoss: 0
+                        actualPrimaryLoss: 0
+                        isUSLHW: true
+                    summary:
+                      exposure: 0
+                      expectedLosses: 0
+                      expectedPrimaryLosses: 0
+                      expectedExcessLosses: 0
+                      numberOfClaims: 0
+                      actualLosses: 0
+                      actualPrimaryLosses: 0
+                results:
+                  expectedLosses: 0
+                  expectedPrimaryLosses: 0
+                  expectedExcessLosses: 0
+                  numberOfClaims: 0
+                  actualLosses: 0
+                  actualPrimaryLosses: 0
+                  splitPoint: 0
+                  modFactor: 0
+                  cappedModFactor: 0
+                  finalModFactor: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: string
+              example: string
+            text/json:
+              schema:
+                type: string
+              example: string
+  /api/NYCIRBInfo/ModEstimator:
+    post:
+      tags:
+        - NYCIRBInfo
+      summary: /api/NYCIRBInfo/ModEstimator - POST
+      operationId: post-api-nycirbinfo-modestimator
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rootobject'
+            example:
+              risk:
+                riskName: string
+                ratingEffectiveDate: string
+                policies:
+                  - entityName: string
+                    carrierID: string
+                    policyNumber: string
+                    policyEffectiveDate: string
+                    policyExpiredDate: string
+                    exposures:
+                      - classCode: string
+                        isUSLHW: true
+                        exposure: 0
+                        elr: 0
+                        dratio: 0
+                        exposureMultiplier: 0
+                        expectedLosses: 0
+                        expectedPrimaryLosses: 0
+                        expectedExcessLosses: 0
+                    losses:
+                      - claimNumber: string
+                        injuryType: 0
+                        claimStatus: string
+                        totalLosses: 0
+                        catastropheCode: 0
+                        overSplitPoint: true
+                        actualLoss: 0
+                        actualPrimaryLoss: 0
+                        isUSLHW: true
+                    summary:
+                      exposure: 0
+                      expectedLosses: 0
+                      expectedPrimaryLosses: 0
+                      expectedExcessLosses: 0
+                      numberOfClaims: 0
+                      actualLosses: 0
+                      actualPrimaryLosses: 0
+                results:
+                  expectedLosses: 0
+                  expectedPrimaryLosses: 0
+                  expectedExcessLosses: 0
+                  numberOfClaims: 0
+                  actualLosses: 0
+                  actualPrimaryLosses: 0
+                  splitPoint: 0
+                  modFactor: 0
+                  cappedModFactor: 0
+                  finalModFactor: 0
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Rootobject'
+            example:
+              risk:
+                riskName: string
+                ratingEffectiveDate: string
+                policies:
+                  - entityName: string
+                    carrierID: string
+                    policyNumber: string
+                    policyEffectiveDate: string
+                    policyExpiredDate: string
+                    exposures:
+                      - classCode: string
+                        isUSLHW: true
+                        exposure: 0
+                        elr: 0
+                        dratio: 0
+                        exposureMultiplier: 0
+                        expectedLosses: 0
+                        expectedPrimaryLosses: 0
+                        expectedExcessLosses: 0
+                    losses:
+                      - claimNumber: string
+                        injuryType: 0
+                        claimStatus: string
+                        totalLosses: 0
+                        catastropheCode: 0
+                        overSplitPoint: true
+                        actualLoss: 0
+                        actualPrimaryLoss: 0
+                        isUSLHW: true
+                    summary:
+                      exposure: 0
+                      expectedLosses: 0
+                      expectedPrimaryLosses: 0
+                      expectedExcessLosses: 0
+                      numberOfClaims: 0
+                      actualLosses: 0
+                      actualPrimaryLosses: 0
+                results:
+                  expectedLosses: 0
+                  expectedPrimaryLosses: 0
+                  expectedExcessLosses: 0
+                  numberOfClaims: 0
+                  actualLosses: 0
+                  actualPrimaryLosses: 0
+                  splitPoint: 0
+                  modFactor: 0
+                  cappedModFactor: 0
+                  finalModFactor: 0
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Rootobject'
+            example:
+              risk:
+                riskName: string
+                ratingEffectiveDate: string
+                policies:
+                  - entityName: string
+                    carrierID: string
+                    policyNumber: string
+                    policyEffectiveDate: string
+                    policyExpiredDate: string
+                    exposures:
+                      - classCode: string
+                        isUSLHW: true
+                        exposure: 0
+                        elr: 0
+                        dratio: 0
+                        exposureMultiplier: 0
+                        expectedLosses: 0
+                        expectedPrimaryLosses: 0
+                        expectedExcessLosses: 0
+                    losses:
+                      - claimNumber: string
+                        injuryType: 0
+                        claimStatus: string
+                        totalLosses: 0
+                        catastropheCode: 0
+                        overSplitPoint: true
+                        actualLoss: 0
+                        actualPrimaryLoss: 0
+                        isUSLHW: true
+                    summary:
+                      exposure: 0
+                      expectedLosses: 0
+                      expectedPrimaryLosses: 0
+                      expectedExcessLosses: 0
+                      numberOfClaims: 0
+                      actualLosses: 0
+                      actualPrimaryLosses: 0
+                results:
+                  expectedLosses: 0
+                  expectedPrimaryLosses: 0
+                  expectedExcessLosses: 0
+                  numberOfClaims: 0
+                  actualLosses: 0
+                  actualPrimaryLosses: 0
+                  splitPoint: 0
+                  modFactor: 0
+                  cappedModFactor: 0
+                  finalModFactor: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                default:
+                  value: 
+            application/json:
+              schema:
+                type: string
+              example: string
+            text/json:
+              schema:
+                type: string
+              example: string
+components:
+  schemas:
+    InputData:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: true
+        fein:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RatingInfo:
+      type: object
+      properties:
+        clientId:
+          type: string
+          nullable: true
+        apiKey:
+          type: string
+          nullable: true
+        ratingDate:
+          type: string
+          format: date-time
+          nullable: true
+        useNCCI:
+          type: boolean
+      additionalProperties: false
+    Fein_RatingInfo:
+      type: object
+      properties:
+        fein:
+          type: string
+          nullable: true
+      additionalProperties: false
+    Exposure:
+      type: object
+      properties:
+        classCode:
+          type: string
+          nullable: true
+        isUSLHW:
+          type: boolean
+        exposure:
+          type: integer
+          format: int32
+        elr:
+          type: integer
+          format: int32
+        dratio:
+          type: integer
+          format: int32
+        exposureMultiplier:
+          type: integer
+          format: int32
+        expectedLosses:
+          type: integer
+          format: int32
+        expectedPrimaryLosses:
+          type: integer
+          format: int32
+        expectedExcessLosses:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Loss:
+      type: object
+      properties:
+        claimNumber:
+          type: string
+          nullable: true
+        injuryType:
+          type: integer
+          format: int32
+        claimStatus:
+          type: string
+          nullable: true
+        totalLosses:
+          type: integer
+          format: int32
+        catastropheCode:
+          type: integer
+          format: int32
+        overSplitPoint:
+          type: boolean
+        actualLoss:
+          type: integer
+          format: int32
+        actualPrimaryLoss:
+          type: integer
+          format: int32
+        isUSLHW:
+          type: boolean
+      additionalProperties: false
+    Summary:
+      type: object
+      properties:
+        exposure:
+          type: integer
+          format: int32
+        expectedLosses:
+          type: integer
+          format: int32
+        expectedPrimaryLosses:
+          type: integer
+          format: int32
+        expectedExcessLosses:
+          type: integer
+          format: int32
+        numberOfClaims:
+          type: integer
+          format: int32
+        actualLosses:
+          type: integer
+          format: int32
+        actualPrimaryLosses:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Policy:
+      type: object
+      properties:
+        entityName:
+          type: string
+          nullable: true
+        carrierID:
+          type: string
+          nullable: true
+        policyNumber:
+          type: string
+          nullable: true
+        policyEffectiveDate:
+          type: string
+          format: date-time
+        policyExpiredDate:
+          type: string
+          format: date-time
+        exposures:
+          type: array
+          items:
+            $ref: '#/components/schemas/Exposure'
+          nullable: true
+        losses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Loss'
+          nullable: true
+        summary:
+          $ref: '#/components/schemas/Summary'
+      additionalProperties: false
+    Results:
+      type: object
+      properties:
+        expectedLosses:
+          type: integer
+          format: int32
+        expectedPrimaryLosses:
+          type: integer
+          format: int32
+        expectedExcessLosses:
+          type: integer
+          format: int32
+        numberOfClaims:
+          type: integer
+          format: int32
+        actualLosses:
+          type: integer
+          format: int32
+        actualPrimaryLosses:
+          type: integer
+          format: int32
+        splitPoint:
+          type: integer
+          format: int32
+        modFactor:
+          type: integer
+          format: int32
+        cappedModFactor:
+          type: integer
+          format: int32
+        finalModFactor:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Risk:
+      type: object
+      properties:
+        riskName:
+          type: string
+          nullable: true
+        ratingEffectiveDate:
+          type: string
+          format: date-time
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
+          nullable: true
+        results:
+          $ref: '#/components/schemas/Results'
+      additionalProperties: false
+    Rootobject:
+      type: object
+      properties:
+        risk:
+          $ref: '#/components/schemas/Risk'
+      additionalProperties: false
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

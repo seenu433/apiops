@@ -17,7 +17,7 @@ paths:
       parameters:
         - name: limit
           in: query
-          description: Format - int32. Format - int32. Format - int32. Format - int32. How many items to return at one time (max 100)
+          description: Format - int32. Format - int32. Format - int32. Format - int32. Format - int32. Format - int32. Format - int32. Format - int32. Format - int32. How many items to return at one time (max 100)
           schema:
             type: integer
             format: int32

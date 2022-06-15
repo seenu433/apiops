@@ -1,0 +1,11 @@
+{
+  "name": "apiops",
+  "properties": {
+    "isBuffered": true,
+    "loggerType": "applicationInsights",
+    "resourceId": "/subscriptions/700d9ddb-edfa-43c7-9028-7936c4676a7a/resourceGroups/apim-devops/providers/microsoft.insights/components/apiops",
+    "credentials": {
+      "instrumentationKey": "{{Logger-Credentials--62a89a31fb42680660e70291}}"
+    }
+  }
+}

@@ -9,7 +9,7 @@
     "protocols": [
       "https"
     ],
-    "serviceUrl": "https://eprinp.azure-api.us/dev/userapprole",
+    "serviceUrl": "https://eprinp.azure-api.us/dev/userapprole-rev",
     "subscriptionRequired": true
   }
 }

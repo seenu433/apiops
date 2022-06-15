@@ -1,0 +1,348 @@
+openapi: 3.0.1
+info:
+  title: EPRI Box Download Service
+  description: REST APIs for Box Generic Download Services
+  version: '1.0'
+servers:
+  - url: http://apiops.azure-api.net/epri-box-download-service
+  - url: https://apiops.azure-api.net/epri-box-download-service
+paths:
+  '/box/download/2.0/{type}/{Id}/content':
+    get:
+      tags:
+        - Box
+      summary: '/box/download/2.0/{type}/{Id}/content - GET'
+      description: '/box/download/2.0/{type}/{Id}/content - GET'
+      operationId: get-box-download-2-0-type-id-content
+      parameters:
+        - name: type
+          in: path
+          description: files/folder
+          required: true
+          schema:
+            type: string
+            description: files/folder
+            nullable: true
+        - name: Id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: access_token
+          in: query
+          description: File/Folder
+          schema:
+            type: string
+            description: File/Folder
+            nullable: true
+      responses:
+        '200':
+          description: Success
+  '/Box/{type}/{Id}/content':
+    get:
+      tags:
+        - Box
+      summary: '/Box/{type}/{Id}/content - GET'
+      description: '/Box/{type}/{Id}/content - GET'
+      operationId: get-box-type-id-content
+      parameters:
+        - name: type
+          in: path
+          description: files/folder
+          required: true
+          schema:
+            type: string
+            description: files/folder
+            nullable: true
+        - name: Id
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: access_token
+          in: query
+          description: File/Folder
+          schema:
+            type: string
+            description: File/Folder
+            nullable: true
+      responses:
+        '200':
+          description: Success
+  '/box/download/2.0/internal_files/{fileId}/versions/{versionId}/representations/{representation}/content':
+    get:
+      tags:
+        - Box
+      summary: '/box/download/2.0/internal_files/{fileId}/versions/{versionId}/representations/{representation}/content - GET'
+      description: '/box/download/2.0/internal_files/{fileId}/versions/{versionId}/representations/{representation}/content - GET'
+      operationId: get-box-download-2-0-internal_files-fileid-versions-versionid-representation
+      parameters:
+        - name: fileId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: versionId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: representation
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: box_client_name
+          in: query
+          description: ''
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: box_client_version
+          in: query
+          description: ''
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: encoding
+          in: query
+          description: ''
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: preview
+          in: query
+          description: ''
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: page
+          in: query
+          description: Format - int32. Format - int32.
+          schema:
+            type: integer
+            description: ''
+            format: int32
+        - name: fields
+          in: query
+          schema:
+            type: string
+            nullable: true
+      responses:
+        '200':
+          description: Success
+    options:
+      tags:
+        - Box
+      summary: Options for REP Preview
+      description: Options for REP Preview
+      operationId: options-for-rep-preview
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: versionId
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: representation
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: box_client_name
+          in: query
+          schema:
+            type: ''
+        - name: box_client_version
+          in: query
+          schema:
+            type: ''
+        - name: page
+          in: query
+          schema:
+            type: ''
+        - name: preview
+          in: query
+          schema:
+            type: ''
+        - name: encoding
+          in: query
+          schema:
+            type: ''
+        - name: fields
+          in: query
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: 'null'
+  '/Box/internal_files/{fileId}/versions/{versionId}/representations/{representation}/content':
+    get:
+      tags:
+        - Box
+      summary: '/Box/internal_files/{fileId}/versions/{versionId}/representations/{representation}/content - GET'
+      description: '/Box/internal_files/{fileId}/versions/{versionId}/representations/{representation}/content - GET'
+      operationId: get-box-internal_files-fileid-versions-versionid-representations-representat
+      parameters:
+        - name: fileId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: versionId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: representation
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: box_client_name
+          in: query
+          description: ''
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: box_client_version
+          in: query
+          description: ''
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: encoding
+          in: query
+          description: ''
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: preview
+          in: query
+          description: ''
+          schema:
+            type: string
+            description: ''
+            nullable: true
+        - name: page
+          in: query
+          description: Format - int32. Format - int32.
+          schema:
+            type: integer
+            description: ''
+            format: int32
+        - name: fields
+          in: query
+          schema:
+            type: string
+            nullable: true
+      responses:
+        '200':
+          description: Success
+  '/box/download/2.0/internal_files/{fileId}/versions/{versionId}/representations/{representation}/content/{name}':
+    get:
+      tags:
+        - Box
+      summary: Preview Representation file API
+      description: Preview Representation file API
+      operationId: preview-representation-file-api
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: versionId
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: representation
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: ''
+        - name: access_token
+          in: query
+          schema:
+            type: ''
+        - name: box_client_name
+          in: query
+          schema:
+            type: ''
+        - name: box_client_version
+          in: query
+          schema:
+            type: ''
+        - name: fields
+          in: query
+          schema:
+            type: ''
+        - name: preview
+          in: query
+          schema:
+            type: ''
+        - name: encoding
+          in: query
+          schema:
+            type: ''
+        - name: page
+          in: query
+          schema:
+            type: ''
+      responses:
+        '200':
+          description: 'null'
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]
