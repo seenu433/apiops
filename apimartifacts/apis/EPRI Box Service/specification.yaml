@@ -1,0 +1,657 @@
+openapi: 3.0.1
+info:
+  title: EPRI Box Service
+  description: REST APIs for Box Generic Services
+  version: '1.0'
+servers:
+  - url: http://apiops.azure-api.net/epri-box-service
+  - url: https://apiops.azure-api.net/epri-box-service
+paths:
+  '/box/gs/2.0/folders/{folderId}':
+    get:
+      tags:
+        - Box
+      summary: Fetch Files from Box Folder.
+      description: Fetch Files from Box Folder.
+      operationId: get-box-gs-2-0-folders-folderid
+      parameters:
+        - name: folderId
+          in: path
+          description: Box Folder Id
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Attribute(s) to include in the response
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Format - int32. Format - int32. The maximum number of items to return in a page. The default is 100 and the max is 1000.
+          schema:
+            type: integer
+            format: int32
+            default: 100
+        - name: autoPaginate
+          in: query
+          description: Whether or not to auto-paginate to fetch all items; defaults to false.
+          schema:
+            type: boolean
+            default: false
+        - name: sort
+          in: query
+          description: The field to sort items on
+          schema:
+            type: string
+        - name: direction
+          in: query
+          description: "The direction to sort results in: asc or desc\r\n            The default is asc."
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: "Format - int32. Format - int32. The offset at which to begin the response. An offset of value of 0 will start at the beginning of the folder-listing. \r\n            Note: If there are hidden items in your previous response, your next offset should be = offset + limit, not the # of records you received back. \r\n            The default is 0."
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/folders/{folderId} - DELETE'
+      description: '/box/gs/2.0/folders/{folderId} - DELETE'
+      operationId: delete-box-gs-2-0-folders-folderid
+      parameters:
+        - name: folderId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: recursive
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Success
+    put:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/folders/{folderId} - PUT'
+      description: '/box/gs/2.0/folders/{folderId} - PUT'
+      operationId: put-box-gs-2-0-folders-folderid
+      parameters:
+        - name: folderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RenameFolderInput'
+            example:
+              name: string
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RenameFolderInput'
+            example:
+              name: string
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RenameFolderInput'
+            example:
+              name: string
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RenameFolderInput'
+            example:
+              name: string
+      responses:
+        '200':
+          description: Success
+    options:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/folders/{folderId} - OPTIONS'
+      description: '/box/gs/2.0/folders/{folderId} - OPTIONS'
+      operationId: options-box-gs-2-0-folders-folderid
+      parameters:
+        - name: folderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /box/gs/2.0/folders:
+    post:
+      tags:
+        - Box
+      summary: /box/gs/2.0/folders - POST
+      description: /box/gs/2.0/folders - POST
+      operationId: post-box-gs-2-0-folders
+      parameters:
+        - name: fields
+          in: query
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/BoxFolderRequest'
+            example:
+              id: string
+              type: 0
+              parent:
+                id: string
+                type: 0
+              name: string
+              description: string
+              sharedLink:
+                access: 0
+                unsharedAt: string
+                permissions:
+                  download: true
+                  preview: 0
+                password: string
+                vanityName: string
+              tags:
+                - string
+              folderUploadEmail:
+                access: string
+              ownedBy:
+                id: string
+                type: 0
+              syncState: 0
+              canNonOwnersInvite: true
+              collaborationRestricted: true
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoxFolderRequest'
+            example:
+              id: string
+              type: 0
+              parent:
+                id: string
+                type: 0
+              name: string
+              description: string
+              sharedLink:
+                access: 0
+                unsharedAt: string
+                permissions:
+                  download: true
+                  preview: 0
+                password: string
+                vanityName: string
+              tags:
+                - string
+              folderUploadEmail:
+                access: string
+              ownedBy:
+                id: string
+                type: 0
+              syncState: 0
+              canNonOwnersInvite: true
+              collaborationRestricted: true
+          text/json:
+            schema:
+              $ref: '#/components/schemas/BoxFolderRequest'
+            example:
+              id: string
+              type: 0
+              parent:
+                id: string
+                type: 0
+              name: string
+              description: string
+              sharedLink:
+                access: 0
+                unsharedAt: string
+                permissions:
+                  download: true
+                  preview: 0
+                password: string
+                vanityName: string
+              tags:
+                - string
+              folderUploadEmail:
+                access: string
+              ownedBy:
+                id: string
+                type: 0
+              syncState: 0
+              canNonOwnersInvite: true
+              collaborationRestricted: true
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/BoxFolderRequest'
+            example:
+              id: string
+              type: 0
+              parent:
+                id: string
+                type: 0
+              name: string
+              description: string
+              sharedLink:
+                access: 0
+                unsharedAt: string
+                permissions:
+                  download: true
+                  preview: 0
+                password: string
+                vanityName: string
+              tags:
+                - string
+              folderUploadEmail:
+                access: string
+              ownedBy:
+                id: string
+                type: 0
+              syncState: 0
+              canNonOwnersInvite: true
+              collaborationRestricted: true
+      responses:
+        '200':
+          description: Success
+  '/box/gs/2.0/files/{fileId}':
+    delete:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/files/{fileId} - DELETE'
+      description: '/box/gs/2.0/files/{fileId} - DELETE'
+      operationId: delete-box-gs-2-0-files-fileid
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+    put:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/files/{fileId} - PUT'
+      description: '/box/gs/2.0/files/{fileId} - PUT'
+      operationId: put-box-gs-2-0-files-fileid
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RenameFolderInput'
+            example:
+              name: string
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RenameFolderInput'
+            example:
+              name: string
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RenameFolderInput'
+            example:
+              name: string
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RenameFolderInput'
+            example:
+              name: string
+      responses:
+        '200':
+          description: Success
+    options:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/files/{fileId} - OPTIONS'
+      description: '/box/gs/2.0/files/{fileId} - OPTIONS'
+      operationId: options-box-gs-2-0-files-fileid
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+    get:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/files/{fileId} - GET'
+      description: '/box/gs/2.0/files/{fileId} - GET'
+      operationId: get-box-gs-2-0-files-fileid
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /box/gs/2.0/search:
+    get:
+      tags:
+        - Box
+      summary: /box/gs/2.0/search - GET
+      description: /box/gs/2.0/search - GET
+      operationId: get-box-gs-2-0-search
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+        - name: content_types
+          in: query
+          schema:
+            type: string
+        - name: file_extensions
+          in: query
+          schema:
+            type: string
+        - name: ancestor_folder_ids
+          in: query
+          schema:
+            type: string
+        - name: fields
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Format - int32. Format - int32.
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          description: Format - int32. Format - int32.
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: Success
+  '/box/gs/2.0/internal_files/{fileId}/versions/{versionId}':
+    get:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/internal_files/{fileId}/versions/{versionId} - GET'
+      description: '/box/gs/2.0/internal_files/{fileId}/versions/{versionId} - GET'
+      operationId: get-box-gs-2-0-internal_files-fileid-versions-versionid
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: versionId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  '/box/gs/2.0/internal_files/{fileId}/versions/{versionId}/representations/{repId}':
+    get:
+      tags:
+        - Box
+      summary: '/box/gs/2.0/internal_files/{fileId}/versions/{versionId}/representations/{repId} - GET'
+      description: '/box/gs/2.0/internal_files/{fileId}/versions/{versionId}/representations/{repId} - GET'
+      operationId: get-box-gs-2-0-internal_files-fileid-versions-versionid-representations-repi
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: versionId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: repId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fields
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /box/gs/2.0/events:
+    post:
+      tags:
+        - Box
+      summary: /box/gs/2.0/events - POST
+      description: /box/gs/2.0/events - POST
+      operationId: post-box-gs-2-0-events
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PreviewEventsInput'
+            example:
+              event_type: string
+              source:
+                type: string
+                id: string
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewEventsInput'
+            example:
+              event_type: string
+              source:
+                type: string
+                id: string
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PreviewEventsInput'
+            example:
+              event_type: string
+              source:
+                type: string
+                id: string
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PreviewEventsInput'
+            example:
+              event_type: string
+              source:
+                type: string
+                id: string
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    BoxEmailRequest:
+      type: object
+      properties:
+        access:
+          type: string
+          nullable: true
+      additionalProperties: false
+    BoxFolderRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/BoxType'
+        parent:
+          $ref: '#/components/schemas/BoxRequestEntity'
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        sharedLink:
+          $ref: '#/components/schemas/BoxSharedLinkRequest'
+        tags:
+          type: array
+          items:
+            type: string
+          nullable: true
+        folderUploadEmail:
+          $ref: '#/components/schemas/BoxEmailRequest'
+        ownedBy:
+          $ref: '#/components/schemas/BoxRequestEntity'
+        syncState:
+          $ref: '#/components/schemas/BoxSyncStateType'
+        canNonOwnersInvite:
+          type: boolean
+          nullable: true
+        collaborationRestricted:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    BoxPermissionsRequest:
+      type: object
+      properties:
+        download:
+          type: boolean
+        preview:
+          $ref: '#/components/schemas/BoxPermissionType'
+      additionalProperties: false
+    BoxPermissionType:
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+    BoxRequestEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/BoxType'
+      additionalProperties: false
+    BoxSharedLinkAccessType:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      format: int32
+    BoxSharedLinkRequest:
+      type: object
+      properties:
+        access:
+          $ref: '#/components/schemas/BoxSharedLinkAccessType'
+        unsharedAt:
+          type: string
+          format: date-time
+          nullable: true
+        permissions:
+          $ref: '#/components/schemas/BoxPermissionsRequest'
+        password:
+          type: string
+          nullable: true
+        vanityName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    BoxSyncStateType:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      format: int32
+    BoxType:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+      type: integer
+      format: int32
+    PreviewEventsInput:
+      type: object
+      properties:
+        event_type:
+          type: string
+          description: ''
+          nullable: true
+        source:
+          $ref: '#/components/schemas/PreviewSource'
+      additionalProperties: false
+      description: ''
+    PreviewSource:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RenameFolderInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: name of folder
+          nullable: true
+      additionalProperties: false
+      description: Class for Access Check Input
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      name: subscription-key
+      in: query
+security:
+  - apiKeyHeader: [ ]
+  - apiKeyQuery: [ ]

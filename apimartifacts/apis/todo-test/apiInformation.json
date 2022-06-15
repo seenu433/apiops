@@ -1,9 +1,11 @@
 {
-  "name": "todo",
+  "name": "todo-v1",
   "properties": {
     "path": "todo",
     "displayName": "todo-test",
     "apiRevision": "1",
+    "apiVersion": "v1",
+    "apiVersionSetId": "/subscriptions/700d9ddb-edfa-43c7-9028-7936c4676a7a/resourceGroups/apim-devops/providers/Microsoft.ApiManagement/service/apiops/apiVersionSets/627d28f86815fd4ef0c6f23c",
     "isCurrent": true,
     "protocols": [
       "https"

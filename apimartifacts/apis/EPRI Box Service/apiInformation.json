@@ -1,0 +1,16 @@
+{
+  "name": "epri-box-service",
+  "properties": {
+    "path": "epri-box-service",
+    "displayName": "EPRI Box Service",
+    "apiRevision": "1",
+    "description": "REST APIs for Box Generic Services",
+    "isCurrent": true,
+    "protocols": [
+      "http",
+      "https"
+    ],
+    "serviceUrl": "https://apim-qa.epri.com/box",
+    "subscriptionRequired": true
+  }
+}
